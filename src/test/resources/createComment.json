@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer"
+        },
+        "Content": {
+          "type": "string"
+        },
+        "User": {
+          "type": "null"
+        },
+        "Product": {
+          "type": "null"
+        },
+        "Comment": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "ID",
+        "Content",
+        "User",
+        "Product",
+        "Comment"
+      ]
+    }
+  },
+  "required": [
+    "data"
+  ]
+}
