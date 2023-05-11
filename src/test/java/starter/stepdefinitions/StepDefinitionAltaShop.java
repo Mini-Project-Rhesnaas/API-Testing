@@ -74,32 +74,23 @@ public class StepDefinitionAltaShop {
         }
 
         switch (method) {
-            case "GET":
-                actor.attemptsTo(Get.resource(path));
-                break;
-            case "POST":
-                actor.attemptsTo(Post.to(path).with(request -> request.header("Authorization", "Bearer " + user.getAuth()).body(bodyRequest).log().all()));
-                break;
-            case "PUT":
-                actor.attemptsTo(Put.to(path).with(request -> request.body(bodyRequest).log().all()));
-                break;
-            case "DELETE":
-                actor.attemptsTo(Delete.from(path));
-                break;
-            default:
-                throw new IllegalStateException("Unknown Method");
-
+            case "GET" -> actor.attemptsTo(Get.resource(path));
+            case "POST" ->
+                    actor.attemptsTo(Post.to(path).with(request -> request.header("Authorization", "Bearer " + user.getAuth()).body(bodyRequest).log().all()));
+            case "PUT" -> actor.attemptsTo(Put.to(path).with(request -> request.body(bodyRequest).log().all()));
+            case "DELETE" -> actor.attemptsTo(Delete.from(path));
+            default -> throw new IllegalStateException("Unknown Method");
         }
     }
 
     @And("{actor} verify status code is {int}")
-    public void userVerifyStatusCodeIs(Actor actor, int statusCode) {
+    public void userVerifyStatusCodeIs(int statusCode) {
         Response response = SerenityRest.lastResponse();
         response.then().statusCode(statusCode).log().all();
     }
 
-    @Then("User verify {string}")
-    public void userVerify(Actor actor, String schema) {
+    @Then("{actor} verify {string}")
+    public void userVerify(String schema) {
         Response response = SerenityRest.lastResponse();
         response.then().body(matchesJsonSchemaInClasspath(schema));
     }
@@ -109,21 +100,13 @@ public class StepDefinitionAltaShop {
 
         actor.whoCan(CallAnApi.at(baseURL));
 
-        switch (method){
-            case "GET" :
-                actor.attemptsTo(Get.resource(path).with(request -> request.header("Authorization", "Bearer " + user.getAuth())));
-                break;
-            case "POST":
-                actor.attemptsTo(Post.to(path));
-                break;
-            case "PUT":
-                actor.attemptsTo(Put.to(path));
-                break;
-            case "DELETE":
-                actor.attemptsTo(Delete.from(path));
-                break;
-            default:
-                throw new IllegalStateException("Unknown method");
+        switch (method) {
+            case "GET" ->
+                    actor.attemptsTo(Get.resource(path).with(request -> request.header("Authorization", "Bearer " + user.getAuth())));
+            case "POST" -> actor.attemptsTo(Post.to(path));
+            case "PUT" -> actor.attemptsTo(Put.to(path));
+            case "DELETE" -> actor.attemptsTo(Delete.from(path));
+            default -> throw new IllegalStateException("Unknown method");
         }
     }
 
@@ -136,7 +119,7 @@ public class StepDefinitionAltaShop {
     }
 
     @Then("{actor} verify response {string}")
-    public void userVerifyResponse(Actor actor, String schema) {
+    public void userVerifyResponse(String schema) {
         Response response = SerenityRest.lastResponse();
         response.then().body(matchesJsonSchemaInClasspath(schema));
     }
@@ -171,7 +154,7 @@ public class StepDefinitionAltaShop {
 
         bodyRequest.put("count", 4);
 
-        actor.attemptsTo(Post.to("/api/products/12888/ratings").with(request -> request.header("Authorization", "Bearer "
+        actor.attemptsTo(Post.to("/api/products/33159/ratings").with(request -> request.header("Authorization", "Bearer "
                 + user.getAuth()).body(bodyRequest)));
 
     }
