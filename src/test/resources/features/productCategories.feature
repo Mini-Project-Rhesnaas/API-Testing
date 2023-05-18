@@ -10,7 +10,7 @@ Feature: Product Categories Alta Shop API
 
   @ProductCategories @Positive
   Scenario: User get category by id
-    Given User call api "/api/categories/12569" with method "GET"
+    Given User call api "/api/categories/29549" with method "GET"
     And User verify status code is 200
     Then User verify response "createCategory.json"
 

@@ -27,6 +27,6 @@ Feature: Orders Alta Shop API
       | email     | password     |
       | userEmail | userPassword |
     And User get auth token
-    And User call api "/api/orders/10413" with method "GET"
+    And User call api "/api/orders/11471" with method "GET"
     And User verify status code is 200
     Then User verify response "byIDOrder.json"

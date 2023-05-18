@@ -16,12 +16,12 @@ Feature: Products Alta Shop API
 
   @Products @Positive
   Scenario: User get products by id
-    Given User call api "/api/products/13568" with method "GET"
+    Given User call api "/api/products/85303" with method "GET"
     And User verify status code is 200
 
   @Products @Positive
   Scenario: User delete products
-    Given User User call api "/api/products/11309" with method "DELETE"
+    Given User User call api "/api/products/15187" with method "DELETE"
     And User verify status code is 200
 
 

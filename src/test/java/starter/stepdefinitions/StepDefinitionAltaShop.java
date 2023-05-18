@@ -76,21 +76,21 @@ public class StepDefinitionAltaShop {
         switch (method) {
             case "GET" -> actor.attemptsTo(Get.resource(path));
             case "POST" ->
-                    actor.attemptsTo(Post.to(path).with(request -> request.header("Authorization", "Bearer " + user.getAuth()).body(bodyRequest).log().all()));
-            case "PUT" -> actor.attemptsTo(Put.to(path).with(request -> request.body(bodyRequest).log().all()));
+                    actor.attemptsTo(Post.to(path).with(request -> request.header("Authorization", "Bearer " + user.getAuth()).body(bodyRequest)));
+            case "PUT" -> actor.attemptsTo(Put.to(path).with(request -> request.body(bodyRequest)));
             case "DELETE" -> actor.attemptsTo(Delete.from(path));
             default -> throw new IllegalStateException("Unknown Method");
         }
     }
 
     @And("{actor} verify status code is {int}")
-    public void userVerifyStatusCodeIs(int statusCode) {
+    public void userVerifyStatusCodeIs(Actor actor, int statusCode) {
         Response response = SerenityRest.lastResponse();
         response.then().statusCode(statusCode).log().all();
     }
 
     @Then("{actor} verify {string}")
-    public void userVerify(String schema) {
+    public void userVerify(Actor actor, String schema) {
         Response response = SerenityRest.lastResponse();
         response.then().body(matchesJsonSchemaInClasspath(schema));
     }
@@ -115,11 +115,11 @@ public class StepDefinitionAltaShop {
         actor.whoCan(CallAnApi.at(baseURL));
 
         actor.attemptsTo(Get.resource("/api/auth/info")
-                .with(request -> request.header("Authorization", "Bearer " + user.getAuth()).log().all()));
+                .with(request -> request.header("Authorization", "Bearer " + user.getAuth())));
     }
 
     @Then("{actor} verify response {string}")
-    public void userVerifyResponse(String schema) {
+    public void userVerifyResponse(Actor actor, String schema) {
         Response response = SerenityRest.lastResponse();
         response.then().body(matchesJsonSchemaInClasspath(schema));
     }
@@ -154,7 +154,7 @@ public class StepDefinitionAltaShop {
 
         bodyRequest.put("count", 4);
 
-        actor.attemptsTo(Post.to("/api/products/33159/ratings").with(request -> request.header("Authorization", "Bearer "
+        actor.attemptsTo(Post.to("/api/products/85303/ratings").with(request -> request.header("Authorization", "Bearer "
                 + user.getAuth()).body(bodyRequest)));
 
     }
